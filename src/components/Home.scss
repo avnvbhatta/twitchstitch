@@ -1,0 +1,122 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+$appHeight: 100vh;
+.container {
+    display: flex;
+    flex-direction: row;
+    .videoFrame {
+        width: 100%;
+        height: $appHeight;
+        background: lightcoral;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        .stream {
+            width: 500px;
+            height: 300px;
+            background: lightgreen;
+            margin: 2em;
+            position: relative;
+            &:hover {
+                outline: 10px solid #9147fe;
+            }
+            .helper{
+                position: absolute;
+                height: 60px;
+                bottom: -60px;
+                
+                button{
+                    padding: 10px;
+                    margin: 0px 20px;
+                }
+            }
+        }
+    }
+    .chatFrame {
+        width: 400px;
+        height: $appHeight;
+        background: lightgoldenrodyellow;
+        position: relative;
+        .chatToggle {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .addChannel{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        width: 320px;
+        height: 180px;
+        background: lightseagreen;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+
+        .modalElement{
+            padding: 5px;
+            margin: 0px 0px 10px;
+        }
+
+        .done{
+            &:not(:disabled){
+                cursor: pointer;
+            }
+        }
+        .modalClose{
+            position: absolute;
+            cursor: pointer;
+            right: 10px;
+            top: 10px;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+    .addStream{
+        position: absolute;
+        right: 50px;
+        bottom: 80px;
+        height: 80px;
+        width: 80px;
+        transition: all 0.2s ease-in;
+        outline: none;
+        border-radius: 50%;
+        border: none;
+        background: #9147fe;
+        &:not(:disabled){
+            cursor: pointer;
+        }
+        &:hover{
+            transform: scale(1.3);
+            &::after{
+                color: white;
+            }
+        }
+
+        &::after{
+            content: "+";
+            font-size: 40px;
+            font-weight: bolder;
+            color:#dddddd;
+            transition: all 0.2s ease-in;
+
+        }
+    }
+
+    .hiddenElement{
+        visibility: hidden;
+        transition: all 0.4s ease-in;
+    }
+}
