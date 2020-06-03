@@ -48,6 +48,30 @@ $twitchColor: #9147fe;
         height: $appHeight;
         background: lightgoldenrodyellow;
         position: relative;
+        display: flex;
+        flex-direction: column;
+
+        .chatTabs{
+            background: rgb(150, 150, 233);
+            list-style-type: none;
+            margin: 0;
+            padding: 15px 4px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            overflow: hidden;
+            li{
+                padding: 3px;
+                color: #dddddd;
+                height: fit-content;
+                font-weight: bold;
+                &:hover{
+                    cursor: pointer;
+                    color: #ffffff;
+                }                
+            }
+        }
     }
     .screenOverlay{
         position: absolute;;

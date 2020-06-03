@@ -29,12 +29,13 @@ const Home = () => {
             setModalVisible(false)
         }}>
         <div className="addChannel" id="modalBox">
+            <span> Enter Channel Name </span>
             <span className="modalClose" onClick={() => setModalVisible(false)}>&#10006;</span>
             <input className="channelInput modalElement" autoFocus type="text" onKeyDown={(e)=>{
                 if(e.key === 'Escape'){
                     setModalVisible(false);
                 }
-            }} placeholder="stream name" onChange={(e) => setChannelName(e.target.value)} />
+            }} placeholder="chocoTaco" onChange={(e) => setChannelName(e.target.value)} />
             <button disabled={channelName === ""} className="done modalElement" onClick={createChannel}> Add stream </button>
         </div>
     </div>
@@ -89,7 +90,11 @@ const Home = () => {
                     <button className="addStream" onClick={() => addChannel()} />
                 </div>
                 <div className={"chatFrame " + (chatVisible ? "show" : "hide")}>
-                    
+                    <ul className="chatTabs">
+                            <li>Aasd</li>
+                            <li>asdasd</li>
+                            <li>asdasdasd</li>
+                    </ul>
                     <div className="iframeContainer">
                         {streams.map(stream => (
                             <iframe frameBorder="2"
