@@ -48,60 +48,66 @@ $twitchColor: #9147fe;
         height: $appHeight;
         background: lightgoldenrodyellow;
         position: relative;
+    }
+    .screenOverlay{
+        position: absolute;;
+        background: rgba(0, 0, 0, 0.532);
+        width: 100vw;
+        height: 100vh;
+        z-index: 3;
+        .addChannel{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 320px;
+            height: 140px;
+            background: #18181b;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 10px;
+    
+            .channelInput{
+                box-sizing: border-box;
+                outline: none;
+                width: 100%;
+                border-radius: 3px;
+                border: 2px solid transparent;
+                &:focus{
+                    border: 2px solid $twitchColor;
+                }
+            }
+            .modalElement{
+                padding: 8px;
+                margin: 10px 0px 10px;
+            }
+    
+            .done{
+                width: fit-content;
+                border-radius: 50px;
+                border: none;
+                &:not(:disabled){
+                    cursor: pointer;
+                    background: $twitchColor;
+                    color: white;
+                }
+            }
+            .modalClose{
+                text-align: right;
+                align-self: flex-end;
+                color: white;
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
         
     }
-    .addChannel{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 10;
-        width: 320px;
-        height: 140px;
-        background: #18181b;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-        padding: 10px;
-
-        .channelInput{
-            box-sizing: border-box;
-            outline: none;
-            width: 100%;
-            border-radius: 3px;
-            border: 2px solid transparent;
-            &:focus{
-                border: 2px solid $twitchColor;
-            }
-        }
-        .modalElement{
-            padding: 8px;
-            margin: 10px 0px 10px;
-        }
-
-        .done{
-            width: fit-content;
-            border-radius: 50px;
-            background: $twitchColor;
-            color: white;
-            border: none;
-            &:not(:disabled){
-                cursor: pointer;
-            }
-        }
-        .modalClose{
-            text-align: right;
-            align-self: flex-end;
-            color: white;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-    }
-    
 
     .toggles{
         display: flex;
@@ -153,10 +159,12 @@ $twitchColor: #9147fe;
                 position: relative;
                 top: 10px;
                 transform: rotate(90deg);
-                transition: all 0.2s ease-in;
+                transition: transform 0.5s ease-in;
+
                 filter: invert(0.8);
                 &:hover{
                     filter: invert(1);
+                    cursor: pointer;
                 }
             }
             .chatToggleIconOff{
@@ -164,10 +172,11 @@ $twitchColor: #9147fe;
                 position: relative;
                 top: 10px;
                 transform: rotate(270deg);
-                transition: all 0.2s ease-in;
+                transition: transform 0.5s ease-in;
                 filter: invert(0.8);
                 &:hover{
                     filter: invert(1);
+                    cursor: pointer;
                 }
     
             }
