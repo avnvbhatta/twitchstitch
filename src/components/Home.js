@@ -10,6 +10,7 @@ const Home = () => {
     const addChannel = () => {
         setModalVisible(true)
     }
+    const [selectedChat, setSelectedChat] = useState("Name1")
     const [lastId, setLastId] = useState(1)
     const createChannel = () => {
         const newStream = {
@@ -19,21 +20,28 @@ const Home = () => {
         setLastId(lastId + 1)
         setStreams([...streams, newStream])
         setModalVisible(false)
+        if (selectedChat === 0)
+            setSelectedChat(channelName)
     }
     const [hoveredVideo, setHoveredVideo] = useState(0)
     const [chatVisible, setChatVisible] = useState(false)
-    const [darkMode, setDarkMode] = useState(false)
+    const [darkMode, setDarkMode] = useState(true)
 
-    const addChannelDiv = <div className="screenOverlay" onClick={(e) => {
-        if (!document.getElementById("modalBox").contains(e.target)) 
+    const addChannelDiv = <div className={"screenOverlay "+(darkMode?"darkMode":"lightMode")} onClick={(e) => {
+        if (!document.getElementById("modalBox").contains(e.target))
             setModalVisible(false)
-        }}>
+    }}>
         <div className="addChannel" id="modalBox">
-            <span> Enter Channel Name </span>
-            <span className="modalClose" onClick={() => setModalVisible(false)}>&#10006;</span>
-            <input className="channelInput modalElement" autoFocus type="text" onKeyDown={(e)=>{
-                if(e.key === 'Escape'){
+            <div className="modalHeader">
+                <span> Enter Channel Name </span>
+                <span className="modalClose" onClick={() => setModalVisible(false)}>&#10006;</span>
+            </div>
+            <input className="channelInput modalElement" autoFocus type="text" onKeyDown={(e) => {
+                if (e.key === 'Escape') {
                     setModalVisible(false);
+                }
+                else if (e.key === 'Enter') {
+                    createChannel();
                 }
             }} placeholder="chocoTaco" onChange={(e) => setChannelName(e.target.value)} />
             <button disabled={channelName === ""} className="done modalElement" onClick={createChannel}> Add stream </button>
@@ -41,7 +49,7 @@ const Home = () => {
     </div>
     return (
         <React.Fragment>
-            <div className="container">
+            <div className={"container " + (darkMode?"darkMode":"lightMode")}>
                 {modalVisible && addChannelDiv}
                 <ReactSortable
                     className="videoFrame"
@@ -57,10 +65,17 @@ const Home = () => {
                             onMouseLeave={() => { setHoveredVideo(0) }} >{stream.channel}
                             <iframe src={"https://player.twitch.tv/?channel=" + stream.channel}
                                 width="100%" height="100%"
-                                frameBorder="0" allowFullScreen="true" scrolling="no" ></iframe>
+                                frameBorder="0" allowFullScreen={true} scrolling="no" muted={false} ></iframe>
                             <div className={"helper " + (hoveredVideo === stream.id ? "" : "hiddenElement")}>
                                 <button className="muteChannel">Mute</button>
-                                <button className="chatChannel">Chat</button>
+                                <button className="chatChannel"
+                                    onClick={
+                                        () => {
+                                            setChatVisible(!chatVisible);
+                                            setSelectedChat(stream.channel)
+                                        }
+                                    }
+                                >Chat</button>
                                 <button className="closeChannel" onClick={
                                     () => {
                                         setStreams(streams.filter((e) => (e.id !== stream.id)));
@@ -91,18 +106,21 @@ const Home = () => {
                 </div>
                 <div className={"chatFrame " + (chatVisible ? "show" : "hide")}>
                     <ul className="chatTabs">
-                            <li>Aasd</li>
-                            <li>asdasd</li>
-                            <li>asdasdasd</li>
+                        {streams.map(stream => (
+                            <li key={stream.id} 
+                            className={selectedChat === stream.channel ? "selectedTab" : ""}
+                            onClick={() => {
+                                setSelectedChat(stream.channel);
+                            }}
+                            >{stream.channel}</li>
+                        ))}
                     </ul>
                     <div className="iframeContainer">
-                        {streams.map(stream => (
-                            <iframe frameBorder="2"
-                                scrolling="yes"
-                                key={stream.id}
-                                src={"https://www.twitch.tv/embed/" + stream.channel + "/chat?parent=codepen.io"}>
-                            </iframe>
-                        ))}
+                        {selectedChat !== "" && <iframe frameBorder="2"
+                            scrolling="yes"
+                            theme="dark"
+                            src={"https://www.twitch.tv/embed/" + selectedChat + "/chat"}>
+                        </iframe>}
                     </div>
                 </div>
             </div>

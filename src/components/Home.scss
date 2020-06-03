@@ -6,6 +6,8 @@ body {
 
 $appHeight: 100vh;
 $twitchColor: #9147fe;
+$darkBackground: black;
+$lightBackground: white;
 .container {
     display: flex;
     flex-direction: row;
@@ -15,7 +17,6 @@ $twitchColor: #9147fe;
     .videoFrame {
         width: 100%;
         height: $appHeight;
-        background: lightcoral;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -30,56 +31,64 @@ $twitchColor: #9147fe;
             &:hover {
                 outline: 10px solid $twitchColor;
             }
-            .helper{
+            .helper {
                 position: absolute;
                 height: 60px;
                 bottom: -60px;
-                
-                button{
+
+                button {
                     padding: 10px;
                     margin: 0px 20px;
                 }
             }
         }
     }
-    
+
     .chatFrame {
         width: 350px;
         height: $appHeight;
-        background: lightgoldenrodyellow;
         position: relative;
         display: flex;
         flex-direction: column;
 
-        .chatTabs{
-            background: rgb(150, 150, 233);
+        .chatTabs {
+            //background: rgb(150, 150, 233);
             list-style-type: none;
             margin: 0;
-            padding: 15px 4px;
+            padding: 5px 4px;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: space-evenly;
             overflow: hidden;
-            li{
+            height: 10vh;
+            li {
                 padding: 3px;
                 color: #dddddd;
                 height: fit-content;
                 font-weight: bold;
-                &:hover{
+                border-radius: 4px;
+                background: rgb(212, 186, 212);
+                transition: all 0.15s ease-in;
+                &:hover {
                     cursor: pointer;
                     color: #ffffff;
-                }                
+                    background: $twitchColor;
+                }
+            }
+            .selectedTab{
+                background: $twitchColor;
+                color: #ffffff;
             }
         }
     }
-    .screenOverlay{
-        position: absolute;;
+    .screenOverlay {
+        position: absolute;
         background: rgba(0, 0, 0, 0.532);
         width: 100vw;
         height: 100vh;
         z-index: 3;
-        .addChannel{
+        .addChannel {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -87,63 +96,68 @@ $twitchColor: #9147fe;
             z-index: 10;
             width: 320px;
             height: 140px;
-            background: #18181b;
+            // background: #18181b;
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
-            align-items: center;
             padding: 10px;
-    
-            .channelInput{
+
+            .channelInput {
                 box-sizing: border-box;
                 outline: none;
                 width: 100%;
                 border-radius: 3px;
-                border: 2px solid transparent;
-                &:focus{
+                // border: 2px solid transparent;
+                &:focus {
                     border: 2px solid $twitchColor;
                 }
             }
-            .modalElement{
+            .modalElement {
                 padding: 8px;
                 margin: 10px 0px 10px;
             }
-    
-            .done{
+
+            .modalHeader {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0px;
+                span {
+                    display: inline-block;
+                    // color: white;
+                }
+            }
+            .done {
                 width: fit-content;
                 border-radius: 50px;
                 border: none;
-                &:not(:disabled){
+                align-self: center;
+                &:not(:disabled) {
                     cursor: pointer;
                     background: $twitchColor;
                     color: white;
                 }
             }
-            .modalClose{
+            .modalClose {
                 text-align: right;
-                align-self: flex-end;
-                color: white;
                 cursor: pointer;
-                width: 40px;
-                height: 40px;
                 font-size: 20px;
                 font-weight: bold;
             }
         }
-        
     }
 
-    .toggles{
+    .toggles {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background: black;
         align-items: center;
         padding: 20px 10px;
-        .toggleIcon{
-            height:20px;
-            width:20px;
-            background:white;
+        .toggleIcon {
+            height: 20px;
+            width: 20px;
+            background: white;
             border-radius: 50%;
             position: absolute;
             top: 5px;
@@ -157,20 +171,20 @@ $twitchColor: #9147fe;
             position: relative;
             transition: 0.2s all ease-in;
         }
-        .darkModeToggleOff{
+        .darkModeToggleOff {
             background: gray;
-            .darkIconToggleOff{
+            .darkIconToggleOff {
                 @extend .toggleIcon;
                 left: 4px;
-            } 
+            }
         }
 
-        .darkModeToggleOn{
+        .darkModeToggleOn {
             background: #9147fe;
-            .darkIconToggleOn{
+            .darkIconToggleOn {
                 @extend .toggleIcon;
                 left: 26px;
-            } 
+            }
         }
 
         .chatToggle {
@@ -178,36 +192,34 @@ $twitchColor: #9147fe;
             background: $twitchColor;
             left: 24px;
             position: relative;
-            .chatToggleIconOn{
-                width:30px;
+            .chatToggleIconOn {
+                width: 30px;
                 position: relative;
                 top: 10px;
                 transform: rotate(90deg);
                 transition: transform 0.5s ease-in;
 
                 filter: invert(0.8);
-                &:hover{
+                &:hover {
                     filter: invert(1);
                     cursor: pointer;
                 }
             }
-            .chatToggleIconOff{
-                width:30px;
+            .chatToggleIconOff {
+                width: 30px;
                 position: relative;
                 top: 10px;
                 transform: rotate(270deg);
                 transition: transform 0.5s ease-in;
                 filter: invert(0.8);
-                &:hover{
+                &:hover {
                     filter: invert(1);
                     cursor: pointer;
                 }
-    
             }
         }
 
-
-        .addStream{
+        .addStream {
             height: 50px;
             width: 50px;
             transition: all 0.2s ease-in;
@@ -215,47 +227,81 @@ $twitchColor: #9147fe;
             border-radius: 50%;
             border: none;
             background: $twitchColor;
-            &:not(:disabled){
+            &:not(:disabled) {
                 cursor: pointer;
             }
-            &:hover{
-                 transform: scale(1.3);
-                &::after{
+            &:hover {
+                transform: scale(1.3);
+                &::after {
                     color: white;
                 }
             }
-    
-            &::after{
+
+            &::after {
                 content: "+";
                 font-size: 40px;
                 font-weight: bolder;
-                color:#dddddd;
+                color: #dddddd;
                 transition: all 0.2s ease-in;
-    
             }
         }
     }
 
-    
-    
-
-    .hiddenElement{
+    .hiddenElement {
         visibility: hidden;
         transition: all 0.4s ease-in;
     }
 
-    .show{
+    .show {
         width: 350px;
-        transition: all .3s ease-in;
-
+        transition: all 0.3s ease-in;
     }
-    .hide{
-        width:0px;
-        transition: all .3s ease-in;
+    .hide {
+        width: 0px;
+        transition: all 0.3s ease-in;
     }
 
-    .iframeContainer iframe{
-        height: 100vh;
+    .iframeContainer iframe {
+        height: 90vh;
         width: 350px;
+    }
+}
+
+// For light/ dark background modes only. Permissions restricted!
+
+.darkMode{
+    transition: all .5s ease-in;
+    background: $darkBackground;
+    .addChannel {
+        background: rgb(43, 41, 41);
+        .channelInput {
+            border: 2px solid transparent;
+        }
+        .modalHeader {
+            span {
+                color: white;
+            }
+        }
+    }    
+}
+
+.lightMode{
+    transition: all .5s ease-in;
+
+    background: $lightBackground;
+
+}
+.addChannel {
+    transition: all .5s ease-in;
+
+    background: $lightBackground;
+    .channelInput {
+        border: 2px solid gray;
+    }
+
+    .modalHeader {
+        span {
+            color: black;
+        }
     }
 }
