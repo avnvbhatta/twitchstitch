@@ -5,9 +5,13 @@ body {
 }
 
 $appHeight: 100vh;
+$twitchColor: #9147fe;
 .container {
     display: flex;
     flex-direction: row;
+    max-width: 100%;
+    max-height: 100vh;
+    overflow: hidden;
     .videoFrame {
         width: 100%;
         height: $appHeight;
@@ -24,7 +28,7 @@ $appHeight: 100vh;
             margin: 2em;
             position: relative;
             &:hover {
-                outline: 10px solid #9147fe;
+                outline: 10px solid $twitchColor;
             }
             .helper{
                 position: absolute;
@@ -38,16 +42,13 @@ $appHeight: 100vh;
             }
         }
     }
+    
     .chatFrame {
-        width: 400px;
+        width: 350px;
         height: $appHeight;
         background: lightgoldenrodyellow;
         position: relative;
-        .chatToggle {
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
+        
     }
     .addChannel{
         position: absolute;
@@ -56,67 +57,172 @@ $appHeight: 100vh;
         transform: translate(-50%, -50%);
         z-index: 10;
         width: 320px;
-        height: 180px;
-        background: lightseagreen;
+        height: 140px;
+        background: #18181b;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-evenly;
+        align-items: center;
         padding: 10px;
 
+        .channelInput{
+            box-sizing: border-box;
+            outline: none;
+            width: 100%;
+            border-radius: 3px;
+            border: 2px solid transparent;
+            &:focus{
+                border: 2px solid $twitchColor;
+            }
+        }
         .modalElement{
-            padding: 5px;
-            margin: 0px 0px 10px;
+            padding: 8px;
+            margin: 10px 0px 10px;
         }
 
         .done{
+            width: fit-content;
+            border-radius: 50px;
+            background: $twitchColor;
+            color: white;
+            border: none;
             &:not(:disabled){
                 cursor: pointer;
             }
         }
         .modalClose{
-            position: absolute;
+            text-align: right;
+            align-self: flex-end;
+            color: white;
             cursor: pointer;
-            right: 10px;
-            top: 10px;
             width: 40px;
             height: 40px;
             font-size: 20px;
             font-weight: bold;
         }
     }
-    .addStream{
-        position: absolute;
-        right: 50px;
-        bottom: 80px;
-        height: 80px;
-        width: 80px;
-        transition: all 0.2s ease-in;
-        outline: none;
-        border-radius: 50%;
-        border: none;
-        background: #9147fe;
-        &:not(:disabled){
-            cursor: pointer;
+    
+
+    .toggles{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: black;
+        align-items: center;
+        padding: 20px 10px;
+        .toggleIcon{
+            height:20px;
+            width:20px;
+            background:white;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            transition: 0.2s all ease-in;
         }
-        &:hover{
-            transform: scale(1.3);
-            &::after{
-                color: white;
+
+        .toggleBG {
+            width: 50px;
+            height: 30px;
+            border-radius: 50px;
+            position: relative;
+            transition: 0.2s all ease-in;
+        }
+        .darkModeToggleOff{
+            background: gray;
+            .darkIconToggleOff{
+                @extend .toggleIcon;
+                left: 4px;
+            } 
+        }
+
+        .darkModeToggleOn{
+            background: #9147fe;
+            .darkIconToggleOn{
+                @extend .toggleIcon;
+                left: 26px;
+            } 
+        }
+
+        .chatToggle {
+            height: 50px;
+            background: $twitchColor;
+            left: 24px;
+            position: relative;
+            .chatToggleIconOn{
+                width:30px;
+                position: relative;
+                top: 10px;
+                transform: rotate(90deg);
+                transition: all 0.2s ease-in;
+                filter: invert(0.8);
+                &:hover{
+                    filter: invert(1);
+                }
+            }
+            .chatToggleIconOff{
+                width:30px;
+                position: relative;
+                top: 10px;
+                transform: rotate(270deg);
+                transition: all 0.2s ease-in;
+                filter: invert(0.8);
+                &:hover{
+                    filter: invert(1);
+                }
+    
             }
         }
 
-        &::after{
-            content: "+";
-            font-size: 40px;
-            font-weight: bolder;
-            color:#dddddd;
-            transition: all 0.2s ease-in;
 
+        .addStream{
+            height: 50px;
+            width: 50px;
+            transition: all 0.2s ease-in;
+            outline: none;
+            border-radius: 50%;
+            border: none;
+            background: $twitchColor;
+            &:not(:disabled){
+                cursor: pointer;
+            }
+            &:hover{
+                 transform: scale(1.3);
+                &::after{
+                    color: white;
+                }
+            }
+    
+            &::after{
+                content: "+";
+                font-size: 40px;
+                font-weight: bolder;
+                color:#dddddd;
+                transition: all 0.2s ease-in;
+    
+            }
         }
     }
+
+    
+    
 
     .hiddenElement{
         visibility: hidden;
         transition: all 0.4s ease-in;
+    }
+
+    .show{
+        width: 350px;
+        transition: all .3s ease-in;
+
+    }
+    .hide{
+        width:0px;
+        transition: all .3s ease-in;
+    }
+
+    .iframeContainer iframe{
+        height: 100vh;
+        width: 350px;
     }
 }

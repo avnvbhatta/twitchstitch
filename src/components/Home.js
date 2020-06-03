@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
-
 import './Home.scss';
+import toggleSVG from "../images/toggle.svg";
 
 const Home = () => {
     const [channelName, setChannelName] = useState('nothing')
-    const [streams,
-        setStreams] = useState([])
+    const [streams, setStreams] = useState([])
     const [modalVisible, setModalVisible] = useState(false)
     const addChannel = () => {
         setModalVisible(true)
@@ -22,11 +21,14 @@ const Home = () => {
         setModalVisible(false)
     }
     const [hoveredVideo, setHoveredVideo] = useState(0)
+    const [chatVisible, setChatVisible] = useState(false)
+    const [darkMode, setDarkMode] = useState(false)
     return (
+        <React.Fragment>
         <div className="container">
             {modalVisible && <div className="addChannel">
-                <button className="modalClose" onClick={() => setModalVisible(false)}>  X </button>
-                <input className="channelInput modalElement" type="text" placeholder="stream name" onChange={(e) => setChannelName(e.target.value)} />
+                <span className="modalClose" onClick={() => setModalVisible(false)}>&#10006;</span>
+                <input className="channelInput modalElement" autoFocus type="text" placeholder="stream name" onChange={(e) => setChannelName(e.target.value)} />
                 <button disabled={channelName === ""} className="done modalElement" onClick={createChannel}> Add stream </button>
             </div>}
             <ReactSortable
@@ -43,13 +45,14 @@ const Home = () => {
                         onMouseLeave={() => { setHoveredVideo(0) }} >{stream.channel}
                         <iframe src={"https://player.twitch.tv/?channel=" + stream.channel}
                         width="100%" height="100%"
-                        frameborder="0" allowfullscreen="true" scrolling="no" ></iframe>
+                        frameBorder="0" allowFullScreen="true" scrolling="no" ></iframe>
                         <div className={"helper " + (hoveredVideo === stream.id ? "" : "hiddenElement")}>
                             <button className="muteChannel">Mute</button>
                             <button className="chatChannel">Chat</button>
                             <button className="closeChannel" onClick={
                                 () =>{
                                     setStreams(streams.filter((e)=>(e.id !== stream.id)));
+                                    setChatVisible(false);
                                 }
                             }>Close</button>
                         </div>
@@ -57,14 +60,37 @@ const Home = () => {
 
                 ))}
             </ReactSortable>
-
-            <div className="chatFrame">
-                <div className="chatToggle">
-                    <h1>BTN</h1>
+            <div className="toggles">
+                <div className={"toggleBG " + (darkMode ? "darkModeToggleOn" : "darkModeToggleOff")} onClick={() =>{
+                    setDarkMode(!darkMode);
+                }}>
+                    <div className={darkMode ? "darkIconToggleOn" : "darkIconToggleOff"}></div>
                 </div>
-            </div>
-            <button className="addStream" onClick={() => addChannel()} />
+                <div className="chatToggle">
+                    <img className={chatVisible ? "chatToggleIconOn" : "chatToggleIconOff"}
+                    src={toggleSVG} 
+                    alt="toggle"
+                    onClick={()=>{
+                        setChatVisible(!chatVisible);
+                    }}
+                    />
+                </div>
+                <button className="addStream" onClick={() => addChannel()} />
+            </div>                           
+                    <div className={"chatFrame " + (chatVisible ? "show" :"hide")}>
+                    <div className="iframeContainer">
+                        {streams.map(stream => (
+                            <iframe frameBorder="2"
+                                    scrolling="yes"
+                                    key={stream.id}
+                                    src={"https://www.twitch.tv/embed/"+stream.channel+"/chat?parent=codepen.io"}>
+                            </iframe>
+                        ))}
+                    </div>
+                </div>
         </div>
+
+        </React.Fragment>
     )
 }
 
