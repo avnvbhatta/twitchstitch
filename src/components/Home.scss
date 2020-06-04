@@ -6,27 +6,64 @@ body {
 
 $appHeight: 100vh;
 $twitchColor: #9147fe;
-$darkBackground: black;
-$lightBackground: white;
+$darkBackground: #2e2e2e;
+$lightBackground: whitesmoke;
+
+.logo{
+    position: absolute;
+    text-align: center;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%,0%);
+    color: $twitchColor;
+    h1{
+        font-family: 'Russo One', sans-serif;
+        font-weight: bolder;
+        font-size: 3em;
+    }
+}
+
+.logoCondensed{
+    position: fixed;
+    top: -15px;
+    left: 15px;
+    color: $twitchColor;
+    h1{
+        font-family: 'Russo One', sans-serif;
+        font-weight: bolder;
+        font-size: 2em;
+    }
+    p{
+        display: none;
+    }
+}
+
 .container {
     display: flex;
     flex-direction: row;
     max-width: 100%;
     max-height: 100vh;
     overflow: hidden;
+    
     .videoFrame {
         width: 100%;
         height: $appHeight;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
+        padding: 0px 0px 50px;
         .stream {
-            width: 500px;
-            height: 300px;
-            margin: 2em;
+            margin: 10px;
             position: relative;
+            iframe{
+                border-radius: 8px;
+                &:hover{
+                    border-radius: 8px 8px 0px 0px;
+                    transition: border-radius 0.2 ease-in;
+                }
+            }
             .helper {
                 position: absolute;
                 height: 45px;
@@ -37,6 +74,8 @@ $lightBackground: white;
                 flex-direction: row;
                 justify-content: space-evenly;
                 align-items: center;
+                border-radius: 0px 0px 8px 8px;
+                z-index: 12;
 
                 .hoverIcon{
                     padding: 10px;
@@ -79,7 +118,7 @@ $lightBackground: white;
                 height: fit-content;
                 font-weight: bold;
                 border-radius: 4px;
-                background: rgb(212, 186, 212);
+                background: rgb(198, 146, 243);
                 transition: all 0.15s ease-in;
                 &:hover {
                     cursor: pointer;
@@ -169,7 +208,7 @@ $lightBackground: white;
             cursor: pointer;
             height: 20px;
             width: 20px;
-            background: black;
+            background: white;
             border-radius: 50%;
             position: absolute;
             top: 5px;
@@ -233,6 +272,7 @@ $lightBackground: white;
                     filter: invert(1);
                 }
             }
+            
         }
 
         .addStream {
@@ -265,7 +305,7 @@ $lightBackground: white;
 
     .hiddenElement {
         visibility: hidden;
-        transition: all 0.1s ease-in;
+        transition: all 0.2s ease-in;
     }
 
     .show {
@@ -281,6 +321,11 @@ $lightBackground: white;
         height: 90vh;
         width: 350px;
     }
+}
+
+.remove{
+    display: none;
+    transition: all 1s ease-in;
 }
 
 // For light/ dark background modes only. Permissions restricted!
@@ -309,15 +354,25 @@ $lightBackground: white;
 }
 .addChannel {
     transition: all .5s ease-in;
-
+    
     background: $lightBackground;
     .channelInput {
         border: 2px solid gray;
     }
-
+    
     .modalHeader {
         span {
             color: black;
         }
     }
+}
+
+.noHeight{
+    transform: scale(0, 0);
+    transition: all .2s ease-in;
+}
+
+.hoHeight{
+    transform: scale(1, 1);
+    transition: all .2s ease-in;
 }
