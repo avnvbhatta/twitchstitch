@@ -16,6 +16,7 @@ import closeIcon from "../images/close.png"
       const [selectedChat, setSelectedChat] = useState("Name1")
       const [lastId, setLastId] = useState(1)
       const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+      const [channelExists, setChannelExists] = useState(false);
       
       const addChannel = () => {
           setModalVisible(true)
@@ -26,16 +27,33 @@ import closeIcon from "../images/close.png"
         return frameWidth
       }
 
+    const duplicate = (s) => {
+        let found = false;
+        streams.map(stream => {
+            if(stream.channel === s){
+                console.log("is duplicate")
+                found = true
+            }
+        })
+        return found
+    }
     const createChannel = () => {
-        const newStream = {
-            id: lastId,
-            channel: channelName
+        //setChannelExists(duplicate(channelName));
+        //console.log(duplicate(channelName))
+        if(!duplicate(channelName)){
+            setChannelExists(false);
+            const newStream = {
+                id: lastId,
+                channel: channelName
+            }
+            setLastId(lastId + 1)
+            setStreams([...streams, newStream])
+            setModalVisible(false)
+            if (selectedChat === 0)
+                setSelectedChat(channelName)
+        }else{
+            setChannelExists(true);
         }
-        setLastId(lastId + 1)
-        setStreams([...streams, newStream])
-        setModalVisible(false)
-        if (selectedChat === 0)
-            setSelectedChat(channelName)
             
     }
 
@@ -83,6 +101,8 @@ import closeIcon from "../images/close.png"
         }
     }
 
+    
+
     const addChannelDiv = <div className={"screenOverlay "+(darkMode?"darkMode":"lightMode")} onClick={(e) => {
         if (!document.getElementById("modalBox").contains(e.target))
             setModalVisible(false)
@@ -90,19 +110,22 @@ import closeIcon from "../images/close.png"
         <div className="addChannel" id="modalBox">
             <div className="modalHeader">
                 <span> Enter Channel Name </span>
-                <span className="modalClose" onClick={() => setModalVisible(false)}>&#10006;</span>
+                <span className="modalClose" onClick={() => {setModalVisible(false);setChannelExists(false);}}>&#10006;</span>
             </div>
             <input className="channelInput modalElement" autoFocus type="text" onKeyDown={(e) => {
                 if (e.key === 'Escape') {
                     setModalVisible(false);
                 }
-                else if (e.key === 'Enter') {
+                else if (e.key === 'Enter' && channelName != "") {
                     createChannel();
-                    setSelectedChat(channelName);
-                    
+                    setSelectedChat(channelName);    
+                }else{
+                    setChannelExists(false);
                 }
+                
             }} placeholder="example: aceu" onChange={(e) => setChannelName(e.target.value)} />
-            <button disabled={channelName === ""} className="done modalElement" onClick={createChannel}> Add Channel </button>
+            <p className={channelExists ? "error" : "remove"}>Channel has already been added.</p>
+            <button disabled={channelName === ''} className="done modalElement" onClick={createChannel}> Add Channel </button>
         </div>
     </div>
     return (
@@ -175,7 +198,7 @@ import closeIcon from "../images/close.png"
                                 }}
                             />
                         </div>
-                        <button className="addStream" onClick={() => addChannel()} />
+                        <button className="addStream " onClick={() => addChannel()} disabled={streams.length >= 6}/>
                     </div>
                     <div className={"chatFrame " + (chatVisible ? "show" : "hide")}>
                         <ul className="chatTabs">

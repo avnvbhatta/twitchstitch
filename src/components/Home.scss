@@ -12,6 +12,7 @@ $lightBackground: whitesmoke;
 .logo{
     position: absolute;
     text-align: center;
+    cursor: default;
     top: 38%;
     left: 50%;
     transform: translate(-50%,0%);
@@ -25,6 +26,7 @@ $lightBackground: whitesmoke;
 
 .logoCondensed{
     position: fixed;
+    cursor: default;
     top: -15px;
     left: 15px;
     color: $twitchColor;
@@ -145,7 +147,7 @@ $lightBackground: whitesmoke;
             transform: translate(-50%, -50%);
             z-index: 10;
             width: 320px;
-            height: 140px;
+            height: 175px;
             // background: #18181b;
             display: flex;
             flex-direction: column;
@@ -188,6 +190,12 @@ $lightBackground: whitesmoke;
                     background: $twitchColor;
                     color: white;
                 }
+            }
+            .error{
+                text-align: center;
+                font-size: 13px;
+                color:red;
+                margin: 0;
             }
             .modalClose {
                 text-align: right;
@@ -285,13 +293,18 @@ $lightBackground: whitesmoke;
             background: $twitchColor;
             &:not(:disabled) {
                 cursor: pointer;
-            }
-            &:hover {
-                transform: scale(1.3);
-                &::after {
-                    color: white;
+                &:hover {
+                    transform: scale(1.3);
+                    &::after {
+                        color: white;
+                    }
                 }
             }
+            &:disabled {
+                cursor: not-allowed;
+                opacity: 20%;
+            }
+            
 
             &::after {
                 content: "+";
