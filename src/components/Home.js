@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import './Home.scss';
-import toggleSVG from "../images/toggle.svg";
+import toggleIcon from "../images/toggle.png";
+import chatIcon from "../images/chat.png"
+import closeIcon from "../images/close.png"
 
 const Home = () => {
     const [channelName, setChannelName] = useState('')
@@ -22,6 +24,7 @@ const Home = () => {
         setModalVisible(false)
         if (selectedChat === 0)
             setSelectedChat(channelName)
+            
     }
     const [hoveredVideo, setHoveredVideo] = useState(0)
     const [chatVisible, setChatVisible] = useState(false)
@@ -42,9 +45,11 @@ const Home = () => {
                 }
                 else if (e.key === 'Enter') {
                     createChannel();
+                    setSelectedChat(channelName);
+                    
                 }
-            }} placeholder="chocoTaco" onChange={(e) => setChannelName(e.target.value)} />
-            <button disabled={channelName === ""} className="done modalElement" onClick={createChannel}> Add stream </button>
+            }} placeholder="example: aceu" onChange={(e) => setChannelName(e.target.value)} />
+            <button disabled={channelName === ""} className="done modalElement" onClick={createChannel}> Add Channel </button>
         </div>
     </div>
     return (
@@ -62,29 +67,38 @@ const Home = () => {
                     {streams.map(stream => (
                         <div className="stream" key={stream.id}
                             onMouseOver={() => { setHoveredVideo(stream.id) }}
-                            onMouseLeave={() => { setHoveredVideo(0) }} >{stream.channel}
+                            onMouseLeave={() => { setHoveredVideo(0) }} >
                             <iframe src={"https://player.twitch.tv/?channel=" + stream.channel}
                                 width="100%" height="100%"
                                 frameBorder="0" allowFullScreen={true} scrolling="no" muted={false} ></iframe>
                             <div className={"helper " + (hoveredVideo === stream.id ? "" : "hiddenElement")}>
-                                <button className="muteChannel">Mute</button>
-                                <button className="chatChannel"
+                                <img src={chatIcon} className="chatChannel hoverIcon" alt="chatIcon" onClick={
+                                        () => {
+                                            if(streams.length === 1){
+                                                setChatVisible(!chatVisible);
+                                            }
+                                            else if(streams.length > 1){
+                                                if(selectedChat === stream.channel){
+                                                    setChatVisible(!chatVisible);
+                                                }else{
+                                                    setChatVisible(true);
+                                                }
+                                                
+                                            }
+                                            setSelectedChat(stream.channel)                                           
+                                        }
+                                    }/>
+                                <img src={closeIcon} className="closeChannel hoverIcon" alt="closeIcon" 
                                     onClick={
                                         () => {
-                                            setChatVisible(!chatVisible);
-                                            setSelectedChat(stream.channel)
+                                            setStreams(streams.filter((e) => (e.id !== stream.id)));
+                                            setChatVisible(false);
                                         }
                                     }
-                                >Chat</button>
-                                <button className="closeChannel" onClick={
-                                    () => {
-                                        setStreams(streams.filter((e) => (e.id !== stream.id)));
-                                        setChatVisible(false);
-                                    }
-                                }>Close</button>
+                                />
+                                
                             </div>
                         </div>
-
                     ))}
                 </ReactSortable>
                 <div className="toggles">
@@ -95,7 +109,7 @@ const Home = () => {
                     </div>
                     <div className="chatToggle">
                         <img className={chatVisible ? "chatToggleIconOn" : "chatToggleIconOff"}
-                            src={toggleSVG}
+                            src={toggleIcon}
                             alt="toggle"
                             onClick={() => {
                                 setChatVisible(!chatVisible);
