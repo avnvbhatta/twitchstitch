@@ -20,8 +20,8 @@ const SortableStream = (props) =>{
             put={false}
             animation={400}>
             {streams.map(stream => (
-                <div className="stream" key={stream.id}
-                    onMouseOver={() => { setHoveredVideo(stream.id) }}
+                <div className="stream" key={stream.channel}
+                    onMouseOver={() => { setHoveredVideo(stream.channel) }}
                     onMouseLeave={() => { setHoveredVideo(0) }} 
                     style = {getSize()}>
                     <iframe 
@@ -34,7 +34,7 @@ const SortableStream = (props) =>{
                         muted={true}
                         title={stream.channel+"TwitchStitched"}>
                     </iframe>
-                    <div className={"helper " + (hoveredVideo === stream.id ? "hoHeight" : "noHeight")}>
+                    <div className={"helper " + (hoveredVideo === stream.channel ? "hoHeight" : "noHeight")}>
                         <img src={chatIcon} className="chatChannel hoverIcon" alt="chatIcon" onClick={
                                 () => {
                                     if(streams.length === 1){
@@ -54,7 +54,7 @@ const SortableStream = (props) =>{
                         <img src={closeIcon} className="closeChannel hoverIcon" alt="closeIcon" 
                             onClick={
                                 () => {
-                                    setStreams(streams.filter((e) => (e.id !== stream.id)));
+                                    setStreams(streams.filter((e) => (e.channel !== stream.channel)));
                                     setChatVisible(false);
                                 }
                             }

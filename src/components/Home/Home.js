@@ -7,7 +7,7 @@ import SortableStream from "../SortableStream/SortableStream";
 
 
   const Home = () => {
-      {/* All of the states required by the app */}
+      /* All of the states required by the app */
       const [chatVisible, setChatVisible] = useState(false) 
       const [channelName, setChannelName] = useState('')
       const [streams, setStreams] = useState([])
@@ -15,7 +15,6 @@ import SortableStream from "../SortableStream/SortableStream";
       const [hoveredVideo, setHoveredVideo] = useState(0)
       const [darkMode, setDarkMode] = useState(true)
       const [selectedChat, setSelectedChat] = useState("Name1")
-      const [lastId, setLastId] = useState(1)
       const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
       const [channelExists, setChannelExists] = useState(false);
       
@@ -42,10 +41,8 @@ import SortableStream from "../SortableStream/SortableStream";
         if(!duplicate(channelName)){
             setChannelExists(false);
             const newStream = {
-                id: lastId,
                 channel: channelName
             }
-            setLastId(lastId + 1)
             setStreams([...streams, newStream])
             setModalVisible(false)
             if (selectedChat === 0)
