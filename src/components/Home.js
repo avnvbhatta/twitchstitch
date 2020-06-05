@@ -31,15 +31,13 @@ import closeIcon from "../images/close.png"
         let found = false;
         streams.map(stream => {
             if(stream.channel === s){
-                console.log("is duplicate")
                 found = true
             }
         })
         return found
     }
     const createChannel = () => {
-        //setChannelExists(duplicate(channelName));
-        //console.log(duplicate(channelName))
+
         if(!duplicate(channelName)){
             setChannelExists(false);
             const newStream = {
@@ -71,32 +69,40 @@ import closeIcon from "../images/close.png"
     // then as we add videos
     // we just divide these as needed
 
+    const aspectRatio = 16/9;
     const getSize = () => {
         if (streams.length === 1){
+            let widthDimensions =  windowDimensions[0] *.58;
+            let heightDimensions = widthDimensions / aspectRatio;
             return {
-                width: windowDimensions[0] * 0.66, 
-                height: windowDimensions[1] * 0.8, 
+                width: widthDimensions, 
+                height: heightDimensions , 
                 minWidth: 1010,
-                minHeight: 575,
+                minHeight: 1010/ aspectRatio,
                 maxWidth: 1725,
-                maxHeight: 975
+                maxHeight: 1725 / aspectRatio
             }
         } else if (!chatVisible && streams.length <  5){
+            let widthDimensions =  windowDimensions[0] *.45;
+            let heightDimensions = widthDimensions / aspectRatio;
             return {
-                width: 0.45 * windowDimensions[0], 
-                height: 0.45*windowDimensions[1],  
+                width: widthDimensions, 
+                height: heightDimensions , 
                 minWidth: 875,
-                minHeight: 395,
-                maxHeight: 862,
-                maxWidth: 487
+                minHeight: 875/aspectRatio,
+                maxWidth: 862,
+                maxHeight: 862 / aspectRatio
             }
         } else{
-            return {width: 0.3 * windowDimensions[0], 
-                height: 0.3*windowDimensions[1],  
+            let widthDimensions =  windowDimensions[0] *.33;
+            let heightDimensions = widthDimensions / aspectRatio;
+            return {
+                width: widthDimensions, 
+                height: heightDimensions ,   
                 minWidth: 383,
-                minHeight: 216,
-                maxHeight: 575,
-                maxWidth: 325
+                minHeight: 383/aspectRatio,
+                maxWidth: 575,
+                maxHeight: 575/aspectRatio
             }
         }
     }
@@ -152,7 +158,7 @@ import closeIcon from "../images/close.png"
                                 style = {getSize()}>
                                 <iframe src={"https://player.twitch.tv/?channel=" + stream.channel}
                                     width="100%" height="100%"
-                                    frameBorder="0" allowFullScreen={true} scrolling="no" muted={false} ></iframe>
+                                    frameBorder="0" allowFullScreen={true} scrolling="no" muted={true} ></iframe>
                                 <div className={"helper " + (hoveredVideo === stream.id ? "hoHeight" : "noHeight")}>
                                     <img src={chatIcon} className="chatChannel hoverIcon" alt="chatIcon" onClick={
                                             () => {
@@ -212,10 +218,10 @@ import closeIcon from "../images/close.png"
                             ))}
                         </ul>
                         <div className="iframeContainer">
-                            {selectedChat !== "" && <iframe frameBorder="2"
+                            {selectedChat !== "" && <iframe frameBorder="0"
                                 scrolling="yes"
                                 theme="dark"
-                                src={"https://www.twitch.tv/embed/" + selectedChat + "/chat"}>
+                                src={"https://www.twitch.tv/embed/" + selectedChat + "/chat"+(darkMode ? "?darkpopout":"")}>
                             </iframe>}
                         </div>
                     </div>
