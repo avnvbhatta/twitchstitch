@@ -5,10 +5,9 @@ body {
 }
 
 $appHeight: 100vh;
-$twitchColor: #9147fe;
 $darkBackground: #2e2e2e;
 $lightBackground: whitesmoke;
-
+$twitchColor: #9147fe;
 .logo{
     position: absolute;
     text-align: center;
@@ -206,115 +205,7 @@ $lightBackground: whitesmoke;
         }
     }
 
-    .toggles {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 10px;
-        .toggleIcon {
-            cursor: pointer;
-            height: 20px;
-            width: 20px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 5px;
-            transition: 0.2s all ease-in;
-        }
-
-        .toggleBG {
-            cursor: pointer;
-            width: 50px;
-            height: 30px;
-            border-radius: 50px;
-            position: relative;
-            transition: 0.2s all ease-in;
-        }
-        .darkModeToggleOff {
-            background: gray;
-            .darkIconToggleOff {
-                @extend .toggleIcon;
-                background: white;
-                left: 4px;
-            }
-        }
-
-        .darkModeToggleOn {
-            background: #9147fe;
-            .darkIconToggleOn {
-                @extend .toggleIcon;
-                left: 26px;
-            }
-        }
-
-        .chatToggle {
-            height: 60px;
-            background: $twitchColor;
-            left: 24px;
-            position: relative;
-            cursor: pointer;
-            .chatToggleIconOn {
-                height:60%;
-                width:60%;
-                position: relative;
-                top: 13px;
-                left: 8px;
-                transform: rotate(180deg);
-                transition: transform 0.2s ease-in;
-                filter: invert(0);
-                &:hover {
-                    filter: invert(1);    
-                }
-
-            }
-            .chatToggleIconOff {
-                height:60%;
-                width:60%;
-                position: relative;
-                top: 13px;
-                left: 8px;
-                transition: all 0.2s ease-in;
-                filter: invert(0);
-                &:hover {
-                    filter: invert(1);
-                }
-            }
-            
-        }
-
-        .addStream {
-            height: 50px;
-            width: 50px;
-            transition: all 0.2s ease-in;
-            outline: none;
-            border-radius: 50%;
-            border: none;
-            background: $twitchColor;
-            &:not(:disabled) {
-                cursor: pointer;
-                &:hover {
-                    transform: scale(1.3);
-                    &::after {
-                        color: white;
-                    }
-                }
-            }
-            &:disabled {
-                cursor: not-allowed;
-                opacity: 20%;
-            }
-            
-
-            &::after {
-                content: "+";
-                font-size: 40px;
-                font-weight: bolder;
-                color: black;
-                transition: all 0.2s ease-in;
-            }
-        }
-    }
+    
 
     .hiddenElement {
         visibility: hidden;

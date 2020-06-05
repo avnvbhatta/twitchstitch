@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ReactSortable } from "react-sortablejs";
-import './Home.scss';
-import toggleIcon from "../images/toggle.png";
-import chatIcon from "../images/chat.png"
-import closeIcon from "../images/close.png"
-
+import '../Home/Home.scss';
+import toggleIcon from "../../images/toggle.png";
+import chatIcon from "../../images/chat.png"
+import closeIcon from "../../images/close.png"
+import Toggle from "../Toggle/Toggle";
 
   const Home = () => {
       const [chatVisible, setChatVisible] = useState(false)
@@ -108,7 +108,7 @@ import closeIcon from "../images/close.png"
     }
 
     
-
+    // addchanneldiv
     const addChannelDiv = <div className={"screenOverlay "+(darkMode?"darkMode":"lightMode")} onClick={(e) => {
         if (!document.getElementById("modalBox").contains(e.target))
             setModalVisible(false)
@@ -143,6 +143,7 @@ import closeIcon from "../images/close.png"
             <React.Fragment>
                 <div className={"container " + (darkMode?"darkMode":"lightMode")}>
                     {modalVisible && addChannelDiv}
+                    {/* sortable *** */}
                     <ReactSortable
                         className="videoFrame"
                         list={streams}
@@ -189,7 +190,7 @@ import closeIcon from "../images/close.png"
                             </div>
                         ))}
                     </ReactSortable>
-                    <div className="toggles">
+                    {/* <div className="toggles">
                         <div className={"toggleBG " + (darkMode ? "darkModeToggleOn" : "darkModeToggleOff")} onClick={() => {
                             setDarkMode(!darkMode);
                         }}>
@@ -205,7 +206,10 @@ import closeIcon from "../images/close.png"
                             />
                         </div>
                         <button className="addStream " onClick={() => addChannel()} disabled={streams.length >= 6}/>
-                    </div>
+                    </div> */}
+                    <Toggle dark={[darkMode, setDarkMode]}/>
+
+                    {/* chatframe *** */}
                     <div className={"chatFrame " + (chatVisible ? "show" : "hide")}>
                         <ul className="chatTabs">
                             {streams.map(stream => (
@@ -217,6 +221,8 @@ import closeIcon from "../images/close.png"
                                 >{stream.channel}</li>
                             ))}
                         </ul>
+
+                        {/* iframe *** */}
                         <div className="iframeContainer">
                             {selectedChat !== "" && <iframe frameBorder="0"
                                 scrolling="yes"
