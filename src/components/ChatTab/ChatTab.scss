@@ -1,0 +1,30 @@
+@import '../standard.scss';
+.chatTabs {
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 4px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow: hidden;
+    height: 10vh;
+    li {
+        padding: 3px;
+        color: #dddddd;
+        height: fit-content;
+        font-weight: bold;
+        border-radius: 4px;
+        background: rgb(198, 146, 243);
+        transition: all 0.15s ease-in;
+        &:hover {
+            cursor: pointer;
+            color: #ffffff;
+            background: $twitchColor;
+        }
+    }
+    .selectedTab{
+        background: $twitchColor;
+        color: #ffffff;
+    }
+}

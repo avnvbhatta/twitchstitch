@@ -1,0 +1,8 @@
+@import '../standard.scss';
+.chatFrame {
+    width: 350px;
+    height: $appHeight;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}

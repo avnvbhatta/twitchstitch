@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { ReactSortable } from "react-sortablejs";
+import React, { useState } from "react";
 import '../Home/Home.scss';
-import toggleIcon from "../../images/toggle.png";
-import chatIcon from "../../images/chat.png"
-import closeIcon from "../../images/close.png"
 import Toggle from "../Toggle/Toggle";
+import AddChannel from "../AddChannel/AddChannel";
+import Chat from "../Chat/Chat";
+import SortableStream from "../SortableStream/SortableStream";
+
 
   const Home = () => {
-      const [chatVisible, setChatVisible] = useState(false)
+      {/* All of the states required by the app */}
+      const [chatVisible, setChatVisible] = useState(false) 
       const [channelName, setChannelName] = useState('')
       const [streams, setStreams] = useState([])
       const [modalVisible, setModalVisible] = useState(false)
@@ -107,33 +108,6 @@ import Toggle from "../Toggle/Toggle";
         }
     }
 
-    
-    // addchanneldiv
-    const addChannelDiv = <div className={"screenOverlay "+(darkMode?"darkMode":"lightMode")} onClick={(e) => {
-        if (!document.getElementById("modalBox").contains(e.target))
-            setModalVisible(false)
-    }}>
-        <div className="addChannel" id="modalBox">
-            <div className="modalHeader">
-                <span> Enter Channel Name </span>
-                <span className="modalClose" onClick={() => {setModalVisible(false);setChannelExists(false);}}>&#10006;</span>
-            </div>
-            <input className="channelInput modalElement" autoFocus type="text" onKeyDown={(e) => {
-                if (e.key === 'Escape') {
-                    setModalVisible(false);
-                }
-                else if (e.key === 'Enter' && channelName != "") {
-                    createChannel();
-                    setSelectedChat(channelName);    
-                }else{
-                    setChannelExists(false);
-                }
-                
-            }} placeholder="example: aceu" onChange={(e) => setChannelName(e.target.value)} />
-            <p className={channelExists ? "error" : "remove"}>Channel has already been added.</p>
-            <button disabled={channelName === ''} className="done modalElement" onClick={createChannel}> Add Channel </button>
-        </div>
-    </div>
     return (
         <div>
             <div className={(streams.length === 0 ?  "logo" : "logoCondensed")}>
@@ -142,95 +116,38 @@ import Toggle from "../Toggle/Toggle";
             </div>
             <React.Fragment>
                 <div className={"container " + (darkMode?"darkMode":"lightMode")}>
-                    {modalVisible && addChannelDiv}
-                    {/* sortable *** */}
-                    <ReactSortable
-                        className="videoFrame"
-                        list={streams}
-                        setList={setStreams}
-                        name="streams"
-                        pull="clone"
-                        put={false}
-                        animation={400}>
-                        {streams.map(stream => (
-                            <div className="stream" key={stream.id}
-                                onMouseOver={() => { setHoveredVideo(stream.id) }}
-                                onMouseLeave={() => { setHoveredVideo(0) }} 
-                                style = {getSize()}>
-                                <iframe src={"https://player.twitch.tv/?channel=" + stream.channel}
-                                    width="100%" height="100%"
-                                    frameBorder="0" allowFullScreen={true} scrolling="no" muted={true} ></iframe>
-                                <div className={"helper " + (hoveredVideo === stream.id ? "hoHeight" : "noHeight")}>
-                                    <img src={chatIcon} className="chatChannel hoverIcon" alt="chatIcon" onClick={
-                                            () => {
-                                                if(streams.length === 1){
-                                                    setChatVisible(!chatVisible);
-                                                }
-                                                else if(streams.length > 1){
-                                                    if(selectedChat === stream.channel){
-                                                        setChatVisible(!chatVisible);
-                                                    }else{
-                                                        setChatVisible(true);
-                                                    }
-                                                    
-                                                }
-                                                setSelectedChat(stream.channel)                                           
-                                            }
-                                        }/>
-                                    <img src={closeIcon} className="closeChannel hoverIcon" alt="closeIcon" 
-                                        onClick={
-                                            () => {
-                                                setStreams(streams.filter((e) => (e.id !== stream.id)));
-                                                setChatVisible(false);
-                                            }
-                                        }
-                                    />
-                                    
-                                </div>
-                            </div>
-                        ))}
-                    </ReactSortable>
-                    {/* <div className="toggles">
-                        <div className={"toggleBG " + (darkMode ? "darkModeToggleOn" : "darkModeToggleOff")} onClick={() => {
-                            setDarkMode(!darkMode);
-                        }}>
-                            <div className={darkMode ? "darkIconToggleOn" : "darkIconToggleOff"}></div>
-                        </div>
-                        <div className={(streams.length > 0 ? "chatToggle" : "hiddenElement")}>
-                            <img className={chatVisible ? "chatToggleIconOn" : "chatToggleIconOff"}
-                                src={toggleIcon}
-                                alt="toggle"
-                                onClick={() => {
-                                    setChatVisible(!chatVisible);
-                                }}
-                            />
-                        </div>
-                        <button className="addStream " onClick={() => addChannel()} disabled={streams.length >= 6}/>
-                    </div> */}
-                    <Toggle dark={[darkMode, setDarkMode]}/>
+                    {modalVisible && 
+                    <AddChannel 
+                        darkMode={darkMode}
+                        setModalVisible={setModalVisible}
+                        setSelectedChat={setSelectedChat}
+                        createChannel={createChannel}
+                        channelName={[channelName, setChannelName]}
+                        channelExists={[channelExists, setChannelExists]}
+                    
+                    />}
+                    <SortableStream 
+                        streams={[streams, setStreams]}
+                        hoveredVideo={[hoveredVideo, setHoveredVideo]}
+                        chatVisible={[chatVisible, setChatVisible]}
+                        selectedChat={[selectedChat, setSelectedChat]}
+                        getSize={getSize}
+                    />
+                    
+                    <Toggle 
+                        dark={[darkMode, setDarkMode]} 
+                        chatVisible={[chatVisible, setChatVisible]}
+                        numStreams={streams.length}
+                        addChannel={addChannel}
+                    />
 
-                    {/* chatframe *** */}
-                    <div className={"chatFrame " + (chatVisible ? "show" : "hide")}>
-                        <ul className="chatTabs">
-                            {streams.map(stream => (
-                                <li key={stream.id} 
-                                className={selectedChat === stream.channel ? "selectedTab" : ""}
-                                onClick={() => {
-                                    setSelectedChat(stream.channel);
-                                }}
-                                >{stream.channel}</li>
-                            ))}
-                        </ul>
-
-                        {/* iframe *** */}
-                        <div className="iframeContainer">
-                            {selectedChat !== "" && <iframe frameBorder="0"
-                                scrolling="yes"
-                                theme="dark"
-                                src={"https://www.twitch.tv/embed/" + selectedChat + "/chat"+(darkMode ? "?darkpopout":"")}>
-                            </iframe>}
-                        </div>
-                    </div>
+                    <Chat 
+                        selectedChat={[selectedChat, setSelectedChat]} 
+                        streams={streams}
+                        darkMode={darkMode}
+                        chatVisible={chatVisible}
+                    />
+                    
                 </div>
 
             </React.Fragment>

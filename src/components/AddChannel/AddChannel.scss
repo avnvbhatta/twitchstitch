@@ -1,0 +1,90 @@
+@import '../standard.scss';
+
+.screenOverlay {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.532);
+    width: 100vw;
+    height: 100vh;
+    z-index: 3;
+    .addChannel {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        width: 320px;
+        height: 175px;
+        // background: #18181b;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding: 10px;
+
+        .channelInput {
+            box-sizing: border-box;
+            outline: none;
+            width: 100%;
+            border-radius: 3px;
+            // border: 2px solid transparent;
+            &:focus {
+                border: 2px solid $twitchColor;
+            }
+        }
+        .modalElement {
+            padding: 8px;
+            margin: 10px 0px 10px;
+        }
+
+        .modalHeader {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px;
+            span {
+                display: inline-block;
+                // color: white;
+            }
+        }
+        .done {
+            width: fit-content;
+            border-radius: 50px;
+            border: none;
+            align-self: center;
+            &:not(:disabled) {
+                cursor: pointer;
+                background: $twitchColor;
+                color: white;
+            }
+        }
+        .error{
+            text-align: center;
+            font-size: 13px;
+            color:red;
+            margin: 0;
+        }
+        .modalClose {
+            text-align: right;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+
+    
+}
+
+.addChannel {
+    transition: all .5s ease-in;
+    
+    background: $lightBackground;
+    .channelInput {
+        border: 2px solid gray;
+    }
+    
+    .modalHeader {
+        span {
+            color: black;
+        }
+    }
+}

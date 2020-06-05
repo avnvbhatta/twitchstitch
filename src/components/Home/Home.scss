@@ -1,13 +1,11 @@
+@import '../standard.scss';
+
 html,
 body {
     margin: 0;
     padding: 0;
 }
 
-$appHeight: 100vh;
-$darkBackground: #2e2e2e;
-$lightBackground: whitesmoke;
-$twitchColor: #9147fe;
 .logo{
     position: absolute;
     text-align: center;
@@ -46,167 +44,9 @@ $twitchColor: #9147fe;
     max-height: 100vh;
     overflow: hidden;
     
-    .videoFrame {
-        width: 100%;
-        height: $appHeight;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        padding: 0px 0px 50px;
-        .stream {
-            margin: 10px;
-            position: relative;
-            iframe{
-                border-radius: 8px;
-                &:hover{
-                    border-radius: 8px 8px 0px 0px;
-                    transition: border-radius 0.2 ease-in;
-                }
-            }
-            .helper {
-                position: absolute;
-                height: 45px;
-                bottom: -45px;
-                background: $twitchColor;
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-evenly;
-                align-items: center;
-                border-radius: 0px 0px 8px 8px;
-                z-index: 12;
-
-                .hoverIcon{
-                    padding: 10px;
-                    margin: 0px 20px;
-                    cursor: pointer;
-                    height: 30px;
-                    filter: invert(0);
-                    transition: all 0.2s ease-in;
-                    &:hover{
-                        filter: invert(1);
-                        transform: scale(1.3);
-                    }
-                }
-                
-            }
-        }
-    }
-
-    .chatFrame {
-        width: 350px;
-        height: $appHeight;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-
-        .chatTabs {
-            //background: rgb(150, 150, 233);
-            list-style-type: none;
-            margin: 0;
-            padding: 5px 4px;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-            overflow: hidden;
-            height: 10vh;
-            li {
-                padding: 3px;
-                color: #dddddd;
-                height: fit-content;
-                font-weight: bold;
-                border-radius: 4px;
-                background: rgb(198, 146, 243);
-                transition: all 0.15s ease-in;
-                &:hover {
-                    cursor: pointer;
-                    color: #ffffff;
-                    background: $twitchColor;
-                }
-            }
-            .selectedTab{
-                background: $twitchColor;
-                color: #ffffff;
-            }
-        }
-    }
-    .screenOverlay {
-        position: absolute;
-        background: rgba(0, 0, 0, 0.532);
-        width: 100vw;
-        height: 100vh;
-        z-index: 3;
-        .addChannel {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            width: 320px;
-            height: 175px;
-            // background: #18181b;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            padding: 10px;
-
-            .channelInput {
-                box-sizing: border-box;
-                outline: none;
-                width: 100%;
-                border-radius: 3px;
-                // border: 2px solid transparent;
-                &:focus {
-                    border: 2px solid $twitchColor;
-                }
-            }
-            .modalElement {
-                padding: 8px;
-                margin: 10px 0px 10px;
-            }
-
-            .modalHeader {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0px;
-                span {
-                    display: inline-block;
-                    // color: white;
-                }
-            }
-            .done {
-                width: fit-content;
-                border-radius: 50px;
-                border: none;
-                align-self: center;
-                &:not(:disabled) {
-                    cursor: pointer;
-                    background: $twitchColor;
-                    color: white;
-                }
-            }
-            .error{
-                text-align: center;
-                font-size: 13px;
-                color:red;
-                margin: 0;
-            }
-            .modalClose {
-                text-align: right;
-                cursor: pointer;
-                font-size: 20px;
-                font-weight: bold;
-            }
-        }
-    }
-
     
 
+    
     .hiddenElement {
         visibility: hidden;
         transition: all 0.2s ease-in;
@@ -220,11 +60,7 @@ $twitchColor: #9147fe;
         width: 0px;
         transition: all 0.3s ease-in;
     }
-
-    .iframeContainer iframe {
-        height: 90vh;
-        width: 350px;
-    }
+    
 }
 
 .remove{
@@ -234,42 +70,7 @@ $twitchColor: #9147fe;
 
 // For light/ dark background modes only. Permissions restricted!
 
-.darkMode{
-    transition: all .5s ease-in;
-    background: $darkBackground;
-    .addChannel {
-        background: rgb(43, 41, 41);
-        .channelInput {
-            border: 2px solid transparent;
-        }
-        .modalHeader {
-            span {
-                color: white;
-            }
-        }
-    }    
-}
 
-.lightMode{
-    transition: all .5s ease-in;
-
-    background: $lightBackground;
-
-}
-.addChannel {
-    transition: all .5s ease-in;
-    
-    background: $lightBackground;
-    .channelInput {
-        border: 2px solid gray;
-    }
-    
-    .modalHeader {
-        span {
-            color: black;
-        }
-    }
-}
 
 .noHeight{
     transform: scale(0, 0);
