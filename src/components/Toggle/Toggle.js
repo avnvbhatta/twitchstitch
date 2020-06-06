@@ -9,7 +9,6 @@ const Toggle = (props) =>{
     const addChannel = props.addChannel
     return(
         <div className="toggles">
-            {console.log(darkMode)}
             <div className={"toggleBG " + (darkMode ? "darkModeToggleOn" : "darkModeToggleOff")} 
             onClick={() => {
                 setDarkMode(!darkMode);
