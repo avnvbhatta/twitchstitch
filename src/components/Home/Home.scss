@@ -1,4 +1,4 @@
-@import '../standard.scss';
+@import "../standard.scss";
 
 html,
 body {
@@ -6,33 +6,33 @@ body {
     padding: 0;
 }
 
-.logo{
+.logo {
     position: absolute;
     text-align: center;
     cursor: default;
     top: 38%;
     left: 50%;
-    transform: translate(-50%,0%);
+    transform: translate(-50%, 0%);
     color: $twitchColor;
-    h1{
-        font-family: 'Russo One', sans-serif;
+    h1 {
+        font-family: "Russo One", sans-serif;
         font-weight: bolder;
         font-size: 3em;
     }
 }
 
-.logoCondensed{
+.logoCondensed {
     position: fixed;
     cursor: default;
     top: -15px;
-    left: 15px;
+    left: 60px;
     color: $twitchColor;
-    h1{
-        font-family: 'Russo One', sans-serif;
+    h1 {
+        font-family: "Russo One", sans-serif;
         font-weight: bolder;
         font-size: 2em;
     }
-    p{
+    p {
         display: none;
     }
 }
@@ -43,10 +43,7 @@ body {
     max-width: 100%;
     max-height: 100vh;
     overflow: hidden;
-    
-    
 
-    
     .hiddenElement {
         visibility: hidden;
         transition: all 0.2s ease-in;
@@ -60,24 +57,21 @@ body {
         width: 0px;
         transition: all 0.3s ease-in;
     }
-    
 }
 
-.remove{
+.remove {
     display: none;
     transition: all 1s ease-in;
 }
 
 // For light/ dark background modes only. Permissions restricted!
 
-
-
-.noHeight{
+.noHeight {
     transform: scale(0, 0);
-    transition: all .2s ease-in;
+    transition: all 0.2s ease-in;
 }
 
-.hoHeight{
+.hoHeight {
     transform: scale(1, 1);
-    transition: all .2s ease-in;
+    transition: all 0.2s ease-in;
 }

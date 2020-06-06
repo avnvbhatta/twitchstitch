@@ -9,11 +9,19 @@ const SortableStream = (props) => {
     const [hoveredVideo, setHoveredVideo] = props.hoveredVideo
     const [chatVisible, setChatVisible] = props.chatVisible
     const [selectedChat, setSelectedChat] = props.selectedChat
-    const getSize = props.getSize
-    console.log("videoFrame " + "parent" + streams.length)
+    function getParentSize() {
+        let length = 1
+        if (streams.length>=2 && streams.length<5){
+            length = 2
+        }
+        if(streams.length >= 5){
+            length = 3
+        }
+        return length;
+    }
     return (
         <ReactSortable
-            className={"videoFrame " + (streams.length < 3 ? "parent" + streams.length : "parent3")}
+            className={"videoFrame parent" + getParentSize()}
             list={streams}
             setList={setStreams}
             name="streams"
@@ -24,7 +32,6 @@ const SortableStream = (props) => {
                 <div className="child" key={stream.channel}
                     onMouseOver={() => { setHoveredVideo(stream.channel) }}
                     onMouseLeave={() => { setHoveredVideo(0) }}
-                // style = {getSize()}>
                 >
                     <iframe
                         src={"https://player.twitch.tv/?channel=" + stream.channel}

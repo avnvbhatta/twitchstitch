@@ -2,17 +2,17 @@ import React from "react";
 import '../Toggle/Toggle.scss';
 import toggleIcon from "../../images/toggle.png";
 
-const Toggle = (props) =>{
+const Toggle = (props) => {
     const [darkMode, setDarkMode] = props.dark
     const [chatVisible, setChatVisible] = props.chatVisible
     const numStreams = props.numStreams
     const addChannel = props.addChannel
-    return(
+    return (
         <div className="toggles">
-            <div className={"toggleBG " + (darkMode ? "darkModeToggleOn" : "darkModeToggleOff")} 
-            onClick={() => {
-                setDarkMode(!darkMode);
-            }}>
+            <div className={"toggleBG " + (darkMode ? "darkModeToggleOn" : "darkModeToggleOff")}
+                onClick={() => {
+                    setDarkMode(!darkMode);
+                }}>
                 <div className={darkMode ? "darkIconToggleOn" : "darkIconToggleOff"}></div>
             </div>
             <div className={(numStreams > 0 ? "chatToggle" : "hiddenElement")}>
@@ -24,10 +24,10 @@ const Toggle = (props) =>{
                     }}
                 />
             </div>
-            <button className="addStream " onClick={addChannel} disabled={numStreams >= 6}/>
-            
+            <button className="addStream " onClick={addChannel} disabled={numStreams >= 6} />
+
         </div>
-            
+
     )
 }
 export default Toggle
