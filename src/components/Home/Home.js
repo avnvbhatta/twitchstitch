@@ -69,7 +69,7 @@ const Home = () => {
 
     const aspectRatio = 16 / 9;
     const getSize = () => {
-        if (streams.length === 1) {
+        if (streams.length <= 1) {
             let widthDimensions = windowWidth * .58;
             let heightDimensions = widthDimensions / aspectRatio;
             console.log("at if thingy")
@@ -77,8 +77,8 @@ const Home = () => {
             return {
                 width: widthDimensions,
                 height: heightDimensions,
-                minWidth: 1010,
-                minHeight: 1010 / aspectRatio,
+                minWidth: 640,
+                minHeight: 640 / aspectRatio,
                 maxWidth: 1725,
                 maxHeight: 1725 / aspectRatio
             }
@@ -90,8 +90,8 @@ const Home = () => {
             return {
                 width: widthDimensions,
                 height: heightDimensions,
-                minWidth: 875,
-                minHeight: 875 / aspectRatio,
+                minWidth: 480,
+                minHeight: 480 / aspectRatio,
                 maxWidth: 862,
                 maxHeight: 862 / aspectRatio
             }
@@ -102,8 +102,8 @@ const Home = () => {
             return {
                 width: widthDimensions,
                 height: heightDimensions,
-                minWidth: 383,
-                minHeight: 383 / aspectRatio,
+                minWidth: 240,
+                minHeight: 240 / aspectRatio,
                 maxWidth: 575,
                 maxHeight: 575 / aspectRatio
             }
