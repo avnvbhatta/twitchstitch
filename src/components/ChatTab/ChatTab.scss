@@ -8,23 +8,24 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     overflow: hidden;
+    background: #18181b;
     height: 10vh;
     li {
         padding: 3px;
         color: #dddddd;
         height: fit-content;
         font-weight: bold;
-        border-radius: 4px;
-        background: rgb(198, 146, 243);
         transition: all 0.15s ease-in;
         &:hover {
             cursor: pointer;
             color: #ffffff;
-            background: $twitchColor;
+            border-bottom: 3px solid $twitchColor;
         }
     }
     .selectedTab{
-        background: $twitchColor;
         color: #ffffff;
+        border-bottom: 3px solid $twitchColor;
+        line-height: 20px;
     }
 }
+

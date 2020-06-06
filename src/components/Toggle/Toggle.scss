@@ -129,5 +129,15 @@
 .lightMode{
     transition: all .5s ease-in;
     background: $lightBackground;
+    .chatTabs{
+        background: white;
+        li, .selectedTab{
+            color: $twitchColor;
+            &:hover{
+                color: $twitchColor;
+            }
+        }
+    }
+    
 
 }
