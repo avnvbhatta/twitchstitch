@@ -41,9 +41,11 @@ const Home = () => {
             setModalVisible(false)
             if (selectedChat === 0)
                 setSelectedChat(channelName)
+                setChannelName('')
         } else {
             setChannelExists(true);
         }
+
 
     }
 
