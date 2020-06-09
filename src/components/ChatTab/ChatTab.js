@@ -8,7 +8,7 @@ const ChatTab = (props) => {
         <div>
             <ul className="chatTabs">
                 {streams.map(stream => (
-                    <li key={stream.id} 
+                    <li key={stream.channel} 
                     className={selectedChat === stream.channel ? "selectedTab" : ""}
                     onClick={() => {
                         setSelectedChat(stream.channel);

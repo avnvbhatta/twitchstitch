@@ -31,13 +31,21 @@ const Home = () => {
         return found
     }
     const createChannel = () => {
-
         if (!duplicate(channelName)) {
             setChannelExists(false);
-            const newStream = {
-                channel: channelName
-            }
-            setStreams([...streams, newStream])
+
+            let channels = channelName.trim().split(",");
+            channels = channels.filter(channel => channel.length > 0 && channel.replace(/ /g,'') !=='');
+            let channelArray = []
+            channels.forEach(channel =>{
+                const newStream = {
+                    channel: channel.trim()
+                }
+                channelArray.push(newStream)
+            })
+            
+            let finalArray = [...streams, ...channelArray]
+            setStreams(finalArray.splice(0,6))
             setModalVisible(false)
             if (selectedChat === 0)
                 setSelectedChat(channelName)
@@ -48,6 +56,7 @@ const Home = () => {
 
 
     }
+
 
 
     return (
