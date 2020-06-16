@@ -9,7 +9,8 @@ const ChatWindow = (props) => {
             {selectedChat !== "" && <iframe frameBorder="0" title="chatIFrame"
                 scrolling="yes"
                 theme="dark"
-                src={"https://www.twitch.tv/embed/" + selectedChat + "/chat"+(darkMode ? "?darkpopout":"")}>
+                parent="twitchstitch.app"
+                src={"https://www.twitch.tv/embed/" + selectedChat + "&parent=twitchstitch.app&parent=twitchstitch.app/chat"+(darkMode ? "?darkpopout":"")}>
             </iframe>}
         </div>
     )

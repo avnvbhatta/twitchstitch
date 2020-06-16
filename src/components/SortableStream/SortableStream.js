@@ -34,7 +34,7 @@ const SortableStream = (props) => {
                     onMouseLeave={() => { setHoveredVideo(0) }}
                 >
                     <iframe
-                        src={"https://player.twitch.tv/?channel=" + stream.channel}
+                        src={"https://player.twitch.tv/?channel=" + stream.channel+"&parent=twitchstitch.app&parent=twitchstitch.app"}
                         width="100%"
                         height="100%"
                         frameBorder="0"

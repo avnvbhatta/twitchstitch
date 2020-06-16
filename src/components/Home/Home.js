@@ -34,7 +34,7 @@ const Home = () => {
         if (!duplicate(channelName)) {
             setChannelExists(false);
 
-            let channels = channelName.trim().split(",");
+            let channels = Array.from(new Set(channelName.trim().split(",")));
             channels = channels.filter(channel => channel.length > 0 && channel.replace(/ /g,'') !=='');
             let channelArray = []
             channels.forEach(channel =>{
@@ -57,6 +57,7 @@ const Home = () => {
 
     }
 
+    
 
 
     return (
