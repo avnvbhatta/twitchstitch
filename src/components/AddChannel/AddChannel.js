@@ -32,7 +32,7 @@ const AddChannel = (props) => {
                         setChannelExists(false);
                     }
                     
-                }} placeholder="example: aceu" onChange={(e) => setChannelName(e.target.value)} />
+                }} placeholder="example: aceu, dizzy, shroud" onChange={(e) => setChannelName(e.target.value)} />
                 <p className={channelExists ? "error" : "remove"}>Channel has already been added.</p>
                 <button disabled={channelName === ''} className="done modalElement" onClick={createChannel}> Add Channel </button>
             </div>
